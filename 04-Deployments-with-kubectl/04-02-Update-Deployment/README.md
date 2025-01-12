@@ -28,14 +28,15 @@ kubectl get deploy
 ```
 ### Describe Deployment
 - **Observation:**
-  - Verify the Events and understand that Kubernetes by default do  "Rolling Update"  for new application releases. 
+  - Verify the Events and understand that Kubernetes by default do  "Rolling Update"  for new application releases. this strategy doesn't have any downtime. In kubernetes this is the default deployment strategy
+  - there is another strategy which is recreate where all pods will deleted and then create again means all at once deployment strategy. So it has downtime
   - With that said, we will not have downtime for our application.
 ```
 # Descibe Deployment
 kubectl describe deployment my-first-deployment
 ```
 ### Verify ReplicaSet
-- **Observation:** New ReplicaSet will be created for new version
+- **Observation:** New ReplicaSet will be created for new version. Means old replicaSets will be deleted and will create new one in "Rolling Update" strategy
 ```
 # Verify ReplicaSet
 kubectl get rs
@@ -79,6 +80,7 @@ http://<worker-node-public-ip>:<Node-Port>
 ### Edit Deployment
 ```
 # Edit Deployment
+# in this approach to change the deployment (another one is set image as described above section) below command will show the deployment contains as yaml on console and there needs to update (whatever need  to update) and after save that file new update will impact
 kubectl edit deployment/<Deployment-Name> --record=true
 kubectl edit deployment/my-first-deployment --record=true
 ```
